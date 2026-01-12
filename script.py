@@ -4,8 +4,8 @@ import shutil
 
 img_extensions = ['.jpg', '.jpeg', '.png', '.jfif']
 DESKTOP_PATH = Path.home() / "Desktop"
-CLIENTS_FOLDER = DESKTOP_PATH / "Clientes"
-CHECKLIST_PATH = DESKTOP_PATH / "checklist.txt"
+CLIENTS_FOLDER = Path("L:/Clientes")
+CHECKLIST_PATH = Path.cwd() / "CheckListLabV7.8.xlsx"
 
 
 def find_client_folder(client_name):
@@ -46,8 +46,8 @@ def copy_template_checklist(folder_name, rat_path):
     """
     Copies the checklist template to the RAT folder.
     """
-    new_file_name = folder_name
-    target_path = rat_path / "checklist.txt"
+    new_file_name = f"{folder_name}.xlsx"
+    target_path = rat_path / new_file_name
     try:
         shutil.copy(str(CHECKLIST_PATH), str(target_path))
     except Exception as e:
@@ -61,7 +61,7 @@ def main():
     if client_path:
         print(f"Cliente encontrado")
         folder_name = f"RAT{input("Insira o número da RAT: ")}"
-        rat_path = client_path / folder_name
+        rat_path = client_path / "Laboratório" / folder_name
         move_images_to_photos_folder(rat_path)
         print("Imagens movidas com sucesso para a pasta 'Fotos'.")
         copy_template_checklist(folder_name, rat_path)
